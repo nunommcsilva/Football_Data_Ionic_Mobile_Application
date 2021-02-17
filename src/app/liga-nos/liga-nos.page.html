@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      {{futebol.competition.name}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div *ngIf="status === 'OFFLINE'">
+      <h1>:(</h1>
+      <h2>Sem conexão de internet. Tente mais tarde</h2>
+    </div>
+  <div *ngIf="status === 'ONLINE'">
+    <!-- Inserir comentário -->
+    <ion-card>
+      <ion-item>
+        <ion-textarea [(ngModel)]="coment" placeholder="Dê a sua opinião sobre a {{futebol.competition.name}}.">
+        </ion-textarea>
+      </ion-item>
+      <div class="ion-padding">
+        <ion-button (click)='submitComent()' expand="block" type="submit" class="ion-no-margin">Submeter</ion-button>
+      </div>
+    </ion-card>
+    <!-- Fim comentário -->
+
+    <!-- ficha técnica -->
+    <ion-grid>
+      <ion-row justify-content-center>
+        <h2 class="item-text-wrap">Competição atual: </h2>
+      </ion-row>
+      <ion-row justify-content-center>
+        <h3 class="item-text-wrap">{{futebol.competition.name}}</h3>
+      </ion-row>
+      <li>Início: {{futebol.season['startDate'] | date:'dd/MM/yyyy'}}</li>
+      <li>Fim: {{futebol.season['endDate'] | date:'dd/MM/yyyy'}}</li>
+      <li *ngIf="futebol.season['winner']">Campeão: {{futebol.season['winner']}}</li>
+      <li *ngIf="futebol.season['winner'] === null">Campeão: [informação disponível a partir de
+        {{futebol.season['endDate']|date:'dd/MM/yyyy'}}]</li>
+      <br>
+      <br>
+      <!--fim ficha técnica -->
+
+
+    <!-- clubes -->
+    <ion-grid class="ion-text-center" >
+        <ion-row *ngFor="let each of futebol.teams" [class.featured]='each.featured' 
+                  (mouseover)="each.featured=true"      (mouseleave)='each.featured=false'
+                  class="ion-align-items-center">
+            <ion-col width='10%' >
+                  <img src={{each.crestUrl}} onerror="this.src='../../assets/images/bola.jpg'" height="50" />
+            </ion-col>
+            <ion-col >
+                <button routerLink='/equipa-nos/{{each.id}}' >{{each.name}}</button>
+            </ion-col>
+        </ion-row>
+      </ion-grid>
+  
+     <!-- fim clubes -->
+
+    </ion-grid>
+    <!-- Sessão de Comentários -->
+    <h3>Comentários</h3>
+    <ion-card *ngFor="let each of todos">
+      <ion-card-header>
+        <ion-card-title>Visitante</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          {{each}}
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <!-- fim comentários -->
+  </div>
+</ion-content>

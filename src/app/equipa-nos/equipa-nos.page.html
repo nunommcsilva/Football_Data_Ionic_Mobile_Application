@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      {{equipa.shortName}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+<ion-content>
+
+
+  <ion-row justify-content-center>
+    <img src={{equipa.crestUrl}} 
+          onerror="this.src='../../assets/images/bola.jpg'" 
+          height="50%" width="50%" />
+  </ion-row>
+
+
+  <ion-card>
+
+    <ion-card-header>
+      <ion-card-title>FICHA TÉCNICA</ion-card-title>
+    </ion-card-header>
+
+    <ion-item>Nome abreviado: {{equipa.shortName}}</ion-item>
+    <ion-item>Morada: {{equipa.address}}</ion-item>
+    <ion-item>Telefone: {{equipa.phone}}</ion-item>
+    <ion-item>Email: {{equipa.email}}</ion-item>
+    <ion-item>Ano de funcação: {{equipa.founded}}</ion-item>
+    <ion-item>Cores: {{equipa.clubColors}}</ion-item>
+    <ion-item>Estádio: {{equipa.venue}}</ion-item>
+  
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>PLANTEL</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+
+<ion-list *ngFor="let each of equipa.squad">
+    <ion-item >
+      <ion-card-title >{{each.name}}</ion-card-title>
+    </ion-item>
+    <ion-item>
+      <ion-label>Posição: {{each.position}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Nascimento: {{each.dateOfBirth|date:'dd/MM/yyyy'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Nacionalidade: {{each.nationaion-itemty}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Camisa: {{each.shirtNumber}}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>Função: {{each.role}}</ion-label>
+      </ion-item>
+  </ion-list>
+
+
+</ion-content>
